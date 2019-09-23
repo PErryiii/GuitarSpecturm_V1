@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GuitarSpecturm_V1</string>
+
+    <string name="title_activity_music_detail">MusicDetailActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
