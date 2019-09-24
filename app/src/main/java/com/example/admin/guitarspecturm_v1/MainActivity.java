@@ -37,23 +37,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        /*text = (TextView) findViewById(R.id.text);
-
-        String lrcString = "[00:00.10]Hard Love - Usher\n" +
-                "[00:00.20]Written by:Bibi Bourelly/Raymond IV\n" +
-                "[00:00.30]";
-        *//*LrcParser lrcParser = new LrcParser();
-        List<LrcBean> lrcBeanList = lrcParser.parseStr2Bean(lrcString);
-        for (int i = 0; i < lrcBeanList.size(); i++){
-            text.setText(text.getText() + "\n" + lrcBeanList.get(i).getLrc());
-        }*//*
-
-        lrcView = (LrcView) findViewById(R.id.lrcView);
-        lrcView.setLrc(lrcString);
-        player = new MediaPlayer();
-        lrcView.setPlayer(player);
-        lrcView.init();*/
         initWidget();
     }
 }

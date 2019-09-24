@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,12 +22,27 @@ public class MusicDetailActivity extends AppCompatActivity implements SeekBar.On
 
     private Boolean IsChanging = false;
 
+    /*LrcView*/
+    private LrcView lrcView;
+    String lrcString = "" +
+            "[ti:稻香]" + "\n" +
+            "[ar:周杰伦]" + "\n" +
+            "[al:魔杰座]" + "\n" +
+            "[by:]" + "\n" +
+            "[offset:0]" + "\n" +
+            "[00:02.54]词：周杰伦 曲：周杰伦" + "\n" +
+            "[00:15.59]　　对这个世界如果你有太多的抱怨" + "\n" +
+            "[00:18.73]　　跌倒了就不敢继续往前走" + "\n" +
+            "[00:21.59]　　为什麽人要这麽的脆弱 堕落";
+
     private void initWidget(){
         /*FindWidget*/
         seekBar_music = (SeekBar)findViewById(R.id.seekBar_music);
         btn_play = (Button)findViewById(R.id.btn_play);
+        lrcView = (LrcView) findViewById(R.id.lrcView);
         /*SetOnClickListener*/
         seekBar_music.setOnSeekBarChangeListener(this);
+        lrcView.setLrc(lrcString);
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,6 +62,9 @@ public class MusicDetailActivity extends AppCompatActivity implements SeekBar.On
         setContentView(R.layout.activity_music_detail);
         initWidget();
         myPlayer = MediaPlayer.create(this, R.raw.music);
+        /*LrcView*/
+        lrcView.setPlayer(myPlayer);
+        lrcView.init();
         /*Set SeekBar*/
         seekBar_music.setMax(myPlayer.getDuration());
         seekBar_music.setProgress(0);
@@ -63,26 +82,22 @@ public class MusicDetailActivity extends AppCompatActivity implements SeekBar.On
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if (myPlayer != null) {
+        public void onBackPressed() {
+            super.onBackPressed();
+            if(myTimer != null){
+                myTimer.cancel();
+                myTimer.purge();
+                myTimer = null;
+            }
+            if (myPlayer != null) {
+                lrcView.setStopFlag(true);
             myPlayer.stop();
             myPlayer.release();
+            myPlayer = null;
         }
-        myTimer.cancel();
-        myTimer.purge();
+
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (myPlayer != null) {
-            myPlayer.stop();
-            myPlayer.release();
-        }
-        myTimer.cancel();
-        myTimer.purge();
-    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

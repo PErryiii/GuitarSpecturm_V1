@@ -29,6 +29,8 @@ public class LrcView extends View {
     private int lrcColor;
     private int mode = 0;
     public final static int KARAOKE = 1;
+    /*停止标志*/
+    private static Boolean StopFlag = false;
 
     public void setHighLineColor(int highLineColor) {
         this.highLineColor = highLineColor;
@@ -44,6 +46,10 @@ public class LrcView extends View {
 
     public void setPlayer(MediaPlayer player) {
         this.player = player;
+    }
+
+    public void setStopFlag(Boolean StopFlag) {
+        this.StopFlag = StopFlag;
     }
 
     /**
@@ -98,7 +104,9 @@ public class LrcView extends View {
         getCurrentPosition();
 
 //        drawLrc1(canvas);
-        int currentMillis = player.getCurrentPosition();
+        int currentMillis = 0;
+        if(StopFlag){ return; }
+         currentMillis = player.getCurrentPosition();
         drawLrc2(canvas, currentMillis);
         long start = list.get(currentPosition).getBeginDt();
         float v = (currentMillis - start) > 500 ? currentPosition * 80 : lastPosition * 80 + (currentPosition - lastPosition) * 80 * ((currentMillis - start) / 500f);
@@ -141,6 +149,7 @@ public class LrcView extends View {
     public void init() {
         currentPosition = 0;
         lastPosition = 0;
+        StopFlag = false;
         setScrollY(0);
         invalidate();
     }
