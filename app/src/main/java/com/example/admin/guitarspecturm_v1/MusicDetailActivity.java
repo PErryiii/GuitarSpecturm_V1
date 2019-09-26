@@ -42,7 +42,8 @@ public class MusicDetailActivity extends AppCompatActivity implements SeekBar.On
         lrcView = (LrcView) findViewById(R.id.lrcView);
         /*SetOnClickListener*/
         seekBar_music.setOnSeekBarChangeListener(this);
-        lrcView.setLrc(lrcString);
+        /*lrcView.setLrc(lrcString);*/
+        lrcView.setLrc2(this, R.raw.musiclrc);
         btn_play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

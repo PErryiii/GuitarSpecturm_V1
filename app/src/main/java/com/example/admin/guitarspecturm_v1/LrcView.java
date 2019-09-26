@@ -62,6 +62,11 @@ public class LrcView extends View {
         list = lrcParser.parseStr2Bean(lrc);
     }
 
+    public void setLrc2(Context context,int fileInRaw) {
+        LrcParser lrcParser = new LrcParser();
+        list = lrcParser.ParseLrc2Bean(context, fileInRaw);
+    }
+
     public LrcView(Context context) {
         this(context, null);
     }
